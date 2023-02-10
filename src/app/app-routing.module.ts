@@ -1,0 +1,64 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CreateEmployeeComponent } from './create-employee/create-employee.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DetailEmployeeComponent } from './detail-employee/detail-employee.component';
+import { ForgotComponent } from './forgot/forgot.component';
+import { LayoutComponent } from './layout/layout.component';
+import { ListEmployeeComponent } from './list-employee/list-employee.component';
+import { ListTimekeepingComponent } from './list-timekeeping/list-timekeeping.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RoleGuardServiceGuard } from './role-guard-service.guard';
+import { RoleGuardService } from './services/role-guard-service.service';
+import { SigninComponent } from './signin/signin.component';
+import { TokenJWTComponent } from './token-jwt/token-jwt.component';
+import { TurnComponent } from './turn/turn.component';
+
+const routes: Routes = [
+  // {path: '', redirectTo: '/heroes-list', pathMatch: 'full'},
+  { path: 'turn', component: TurnComponent },
+  { path: 'token', component: TokenJWTComponent },
+  { path: '', component: SigninComponent },
+  { path: 'signin', component: SigninComponent },
+  { path: 'logout', component: LogoutComponent },
+  // { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
+  { path: 'forgot', component: ForgotComponent},
+  { path: 'reset-password', component: ResetPasswordComponent},
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [RoleGuardServiceGuard],
+    children: [
+      {
+        path: 'list-employee',
+        component: ListEmployeeComponent,
+      },
+      {
+        path: 'create-employee',
+        component: CreateEmployeeComponent,
+      },
+      {
+        path: 'list-timekeeping',
+        component: ListTimekeepingComponent,
+      },
+      // {path: 'create-employee', component: ListEmployeeComponent},
+      {
+        path: 'detail-employee/:id',
+        component: DetailEmployeeComponent,
+      },
+      { path: 'dashboard', component: DashboardComponent },
+    ],
+  },
+  // {path: 'update-employee/:id', component: ListEmployeeComponent},
+  // {path: 'delete-employee/:id', component: ListEmployeeComponent},
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
