@@ -12,6 +12,7 @@ import ValidationError from 'validation-utils/dist/lib/ValidationError';
 })
 export class ResetPasswordComponent {
   submitted = false;
+
   comparePassword(c: AbstractControl) {
     const v = c.value;
       return (v.new_password === v.confirm_password) ? null : {
